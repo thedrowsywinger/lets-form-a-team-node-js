@@ -13,7 +13,7 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: "postgres",
     pool: connectionPoolOptions,
-    logQueryParameters: process.env.LOG_SQL_QUERY_PARAMS,
+    // logQueryParameters: process.env.LOG_SQL_QUERY_PARAMS,
   },
   test: {
     username: process.env.TEST_DB_USER,
@@ -22,7 +22,7 @@ module.exports = {
     host: process.env.TEST_DB_HOST,
     dialect: "postgres",
     pool: connectionPoolOptions,
-    logQueryParameters: process.env.LOG_SQL_QUERY_PARAMS,
+    // logQueryParameters: process.env.LOG_SQL_QUERY_PARAMS,
   },
   production: {
     username: process.env.DB_USER,
@@ -31,6 +31,6 @@ module.exports = {
     host: process.env.DB_HOST,
     dialect: "postgres",
     pool: connectionPoolOptions,
-    logQueryParameters: process.env.LOG_SQL_QUERY_PARAMS,
+    // logQueryParameters: process.env.LOG_SQL_QUERY_PARAMS,
   },
 };

@@ -1,4 +1,6 @@
 const router = require("express").Router();
-const { ApiRoutes } = require("../utils/apiRoutes");
+const coreController = require("./../controllers/coreController");
 
-// router.post("/test/")
+router.post("/test/", coreController);
+
+module.exports = router;

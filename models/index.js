@@ -65,5 +65,6 @@ db.Profile = Profile;
 if (env === "development") {
   db.sequelize.sync({ alter: true }).then(() => {
     console.log("Database has been synced");
+    console.log("################################");
   });
 }

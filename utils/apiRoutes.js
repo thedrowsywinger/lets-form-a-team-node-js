@@ -1,5 +1,8 @@
 const ApiRoutes = {
-  API: "/api"
+  API: "/api",
+
+  // context
+  CORE: "/core",
 }
 
 module.exports = ApiRoutes;

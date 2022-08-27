@@ -10,7 +10,8 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-// const mainRouter = require("./routers/index");
+const mainRouter = require("./routers/index");
+const ApiRoutes = require("./utils/apiRoutes");
 // const { MEDIA_ROOT_ENDPOINT, ApiRoutes } = require("./utils/constants");
 // const errorLoggerMiddleware = require("./middlewares/logging");
 
@@ -25,7 +26,7 @@ app.use(
 );
 app.use(cors());
 
-// app.use(ApiRoutes.API, mainRouter);
+app.use(ApiRoutes.API, mainRouter);
 
 // error handler
 // app.use(errorLoggerMiddleware);
