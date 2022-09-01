@@ -8,13 +8,14 @@ const {
   registerEmployeeController,
   loginController,
   getUsersController,
-  getUserByIdController
+  getUserByIdController,
+  refreshTokenController
 } = require("./../controllers/coreController");
 
 const { validateYupSchema } = require("../middlewares/validation");
 
 const {
-  userProfileRegistrationSchema,
+  userProfileRegistrationSchema, refreshTokenSchema,
 } = require("../validations/coreSchema");
 
 const { auth } = require("../middlewares/auth");
@@ -31,6 +32,11 @@ router.post(
   ApiRoutes.LOGIN,
   loginController
 )
+router.post(
+  ApiRoutes.REFRESH_ACCESS_TOKEN,
+  validateYupSchema(refreshTokenSchema),
+  refreshTokenController,
+);
 router.get(
   ApiRoutes.GET_USERS,
   getUsersController

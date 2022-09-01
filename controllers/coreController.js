@@ -151,7 +151,6 @@ const loginController = async (req, res) => {
       },
     );
 
-    console.log("am i here")
     console.log(userInstance.id)
     const profileInstance = await Profile.findOne(
       {
@@ -188,6 +187,56 @@ const loginController = async (req, res) => {
     )
   }
 }
+
+const refreshTokenController = async (req, res, next) => {
+  try {
+    const token = await req.body.accessToken.replace("jwt ", "");
+    let decoded;
+    try {
+      // @ts-ignore
+      decoded = await jwt.verify(token, JWT_SECRET_KEY);
+    } catch (accessTokenVerificationFailedError) {
+      // probably not access token, try verifying as refresh token
+      try {
+        // @ts-ignore
+        decoded = await jwt.verify(token, jwtRefreshTokenSecretKey);
+      } catch (refreshTokenVerificationFailedError) {
+        return res.status(EHttpStatusCodes.UNAUTHORIZED).send(
+          {
+            "message": ApiResponseMessages.INVALID_JWT
+          }
+        );
+      }
+    }
+
+    const userId = decoded._id;
+    const userInstance = await AuthUser.findOne({ where: { id: userId } });
+
+    if (!userInstance) {
+      return res.status(EHttpStatusCodes.UNAUTHORIZED).send({
+        "message": ApiResponseMessages.INVALID_USER
+      });
+    } else {
+      const refreshToken = jwt.sign(
+        // @ts-ignore
+        { _id: userInstance.id.toString() },
+        // @ts-ignore
+        jwtRefreshTokenSecretKey,
+        { expiresIn: "1d" },
+      );
+
+      var data = {
+        status: 200,
+        accessToken: refreshToken,
+        expires: "in 2 days",
+      };
+
+      return res.status(EHttpStatusCodes.ACCEPTED).send(data);
+    }
+  } catch (e) {
+    return next(e);
+  }
+};
 
 const registerEmployeeController = async (req, res) => {
   try {
@@ -377,6 +426,7 @@ module.exports = {
   seederRequestController,
   registerEmployeeController,
   loginController,
+  refreshTokenController,
   getUsersController,
   getUserByIdController
 }

@@ -8,6 +8,8 @@ const {
   passwordSchema
 } = require("./common");
 
+const ApiResponseMessages = require("../utils/apiResponseMessages")
+
 const userProfileRegistrationSchema = yup.object({
   username: usernameSchema.required(),
   password: passwordSchema.required(),
@@ -17,6 +19,16 @@ const userProfileRegistrationSchema = yup.object({
   accountType: yup.number().required().oneOf([...Object.values(EAccountTypes)].map((value) => Number(value))),
 })
 
+const refreshTokenSchema = yup.object({
+  accessToken: yup
+    .string()
+    .required()
+    .test("starts_with_jwt_space", ApiResponseMessages.INVALID_JWT, (value) => {
+      return Boolean(value) && value.length > 0 && value.startsWith("jwt ");
+    }),
+});
+
 module.exports = {
-  userProfileRegistrationSchema
+  userProfileRegistrationSchema,
+  refreshTokenSchema
 }

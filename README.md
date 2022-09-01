@@ -34,6 +34,63 @@ Super Admin: 1
 Manager: 2
 Employee 3
 
+##### Login:
+
+URL: 127.0.0.1:3001/api/core/login/
+
+Sample POST request
+
+```sh
+{
+    "username": "superAdmin",
+    "password": "super_admin1"
+}
+```
+
+Sample Response:
+
+```sh
+{
+    "message": "Succesful",
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxIiwiaWF0IjoxNjYyMDQ0NDk0LCJleHAiOjE2NjIxMzA4OTR9.mFKmXAoViHdZ4M2icaI5Vf8s0NI2djehBJyeHFvZlxc",
+    "profile": {
+        "id": 1,
+        "name": "Super Admin",
+        "contactNumber": "01837645524",
+        "email": "",
+        "createdAt": "2022-08-31T16:25:59.318Z",
+        "updatedAt": "2022-08-31T16:25:59.318Z",
+        "userId": 1,
+        "createdBy": null,
+        "updatedBy": null
+    }
+}
+```
+
+This access token must be used in requests that require Authorization. The Authorization header must be set like this: "jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxIiwiaWF0IjoxNjYyMDQ0NDk0LCJleHAiOjE2NjIxMzA4OTR9.mFKmXAoViHdZ4M2icaI5Vf8s0NI2djehBJyeHFvZlxc"
+
+##### Refresh Access Token:
+
+URL: 127.0.0.1:3001/api/core/refresh-token/
+
+Sample POST request
+
+```sh
+{
+    "accessToken": "jwt eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxIiwiaWF0IjoxNjYyMDQ0NDk0LCJleHAiOjE2NjIxMzA4OTR9.mFKmXAoViHdZ4M2icaI5Vf8s0NI2djehBJyeHFvZlxc"
+}
+```
+
+Sample Response:
+
+```sh
+{
+    "status": 200,
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxIiwiaWF0IjoxNjYyMDQ0NTEyLCJleHAiOjE2NjIxMzA5MTJ9.-c1WG5qMUo9CJCTgp8sYSctpIe6X9dYrCFHTGg8NPuM",
+    "expires": "in 2 days"
+}
+```
+
 ##### Register Manager:
 
 A superAdmin can only add a manager.
