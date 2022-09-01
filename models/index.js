@@ -20,6 +20,13 @@ const {
 } = require("./profile")
 
 const applyRelationshipSetup = (sequelize) => {
+  /* Profile Auth User connection */
+  Profile.belongsTo(AuthUser, {
+    foreignKey: "userId",
+    targetKey: "id",
+    allowNull: false
+  })
+  /* Profile Auth User connection */
   /* Profile Created By Info */
   AuthUser.hasMany(Profile, {
     foreignKey: 'createdBy',

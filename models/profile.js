@@ -6,11 +6,6 @@ const Profile = sequelize.define("Profile", {
     type: DataTypes.STRING,
     allowNull: false
   },
-  gender: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    defaultValue: 1
-  },
   contactNumber: {
     type: DataTypes.STRING,
     allowNull: false
